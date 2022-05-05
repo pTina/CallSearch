@@ -19,37 +19,26 @@
 //     }
 // });
 
-const serviceKey = '9MswFkR%2FWc5ryIBw8t3NNcK00kpfKSLFKLPbDGvy8L3ebhId5ngHI2xXmGMM3YhK5yutxy7mi1YLizOuaXpaDQ%3D%3D';
-var xhr = new XMLHttpRequest();
-var url = 'http://api.data.go.kr/openapi/tn_pubr_public_tfcwker_mvmn_cnter_api';
-var queryParams = '?' + encodeURIComponent('serviceKey') + '='+serviceKey; 
-queryParams += '&' + encodeURIComponent('type') + '=' + encodeURIComponent('json'); 
-// queryParams += '&' + encodeURIComponent('lnmadr') + '=' + encodeURIComponent('경기도 고양시'); 
+// 2022-05-05
+// 데이터가 총 157개로 매우 적음
+// API 이용하여 데이터를 얻은 후 json으로 저장 후 사용
+// const serviceKey = '9MswFkR%2FWc5ryIBw8t3NNcK00kpfKSLFKLPbDGvy8L3ebhId5ngHI2xXmGMM3YhK5yutxy7mi1YLizOuaXpaDQ%3D%3D';
+// var xhr = new XMLHttpRequest();
+// var url = 'http://api.data.go.kr/openapi/tn_pubr_public_tfcwker_mvmn_cnter_api';
+// var queryParams = '?' + encodeURIComponent('serviceKey') + '='+serviceKey; 
+// queryParams += '&' + encodeURIComponent('type') + '=' + encodeURIComponent('json'); 
+// queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1');
+// queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('1000');
 
 // xhr.open('GET', url + queryParams);
 // xhr.onreadystatechange = function () {
 //     if (this.readyState == 4) {
-//         console.log('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
+//         console.log(this.responseText);
+//         // console.log('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
 //     }
 // };
 
-xhr.send('');
-// var queryParams = '&' + encodeURIComponent('rdnmadr') + '=' + encodeURIComponent('');
-// xhr.open('GET', url + queryParams);
-// xhr.onreadystatechange = function () {
-//     console.log('eee');
-//     if (this.readyState == 4) {
-//         alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
-//     }
-// };
-// Import all plugins
-// import * as bootstrap from 'bootstrap';
-
-// Or import only needed plugins
-// import { Tooltip as Tooltip, Toast as Toast, Popover as Popover } from 'bootstrap';
-
-// Or import just one
-// import {Alert as Alert} from '../node_modules/bootstrap/js/dist/alert';
+// xhr.send('');
 
 import {SearchInfo} from './searchInfo.js';
 
