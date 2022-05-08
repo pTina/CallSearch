@@ -1,4 +1,6 @@
 import { callData } from "./callData.js";
+// 성능테스트
+// https://yceffort.kr/2020/12/measuring-performance-of-javascript-functions
 /*
 tfcwkerMvmnCnterNm				교통약자이동지원센터명
 rdnmadr				소재지도로명주소 // 없는거: 3개(lnmadr는 있음)
@@ -34,26 +36,31 @@ instt_nm				제공기관기관명
 */
 
 const DATA = callData;
-function getData() {
-    const t0 = performance.now();
+export function getData(key, value) {
+    let KEY = '';
+    if(key === 'area'){
+        // 도로명주소
+        KEY = 'rdnmadr';
+    }
+    const VAL = value;
+    let result = [];
 
     // 8~10ms
-    DATA.map(value =>{
-        console.log(value)
-    })
+    if(KEY === 'rdnmadr'){
+        DATA.map(value =>{
+            // 도로명주소 없을 때
+            if(value[KEY] === ''){
+                // 지번주소 확인
+                if(value.lnmadr.indexOf(VAL) > -1){
+                    result.push(value);
+                }
+            }else{ 
+                if(value[KEY].indexOf(VAL) > -1){
+                    result.push(value);
+                }
+            }
+        })
+    }
 
-    // 평균 8~9
-    // for(let i =0; i<DATA.length; i++){
-    //     console.log(DATA[i])
-    // }
-
-    const t1 = performance.now();
-
-    console.log(t1-t0);
-
-    // for(const val of callData){
-    //     console.log(val);
-    // }
+    return result;
 }
-
-getData();
