@@ -13,61 +13,71 @@ export class SearchInfo {
         this.$typeCar = $('.typeCar');
         this.$btnSearch = $('.btnSearch');
         this.listArea1 = [];
-        this._area1, this._area1;
-        this._typeCar = '';
+        this._area, this._typeCar;
+        this.render;
+        this._onChange = false;
+        
 
         // 한번만 실행
         this.makeArea1();
 
-        $(".area1").change(function(){
+        $(".area1").click(function(){
             const val = $(this).find('option:selected').attr('value');
-           
+
+            if(self.area === val){
+                self.onChange = false;
+                return false;
+            }
+            
             if(val === 'none'){
-                // self.$area2.html('');
-                // self.$area2.attr('disabled', '');
-                self.area1 = '';
-                self.$btnSearch.attr('disabled', '');
+                self.area = '';
+                self.$btnSearch.prop('disabled', true);
 
             }else{
-                self.area1 = val;
-                // self.makeArea2(val);
-                // self.area2 = self.$area2.find('option:first-child').attr('value');
-                self.$btnSearch.removeAttr('disabled');
+                self.area = val;
+                self.$btnSearch.prop('disabled', false);
+                self.onChange = true;
+                $('.typeCar input').prop('disabled', true);
             }
+            
         });
 
-        // $(".area2").change(function(){
-        //     const val = $(this).find('option:selected').attr('value');
-        //     self.area2 = val;
-        // });
 
         $('.btnSearch').on('click', ()=>{
-            const reuslt = ds.getData('area',this.area);
-            const render = new Render(reuslt);
+            if(!this.onChange) return false;
 
+            const reuslt = ds.getData('area',this.area);
+            self.render = new Render(reuslt);
+
+            self.render.getListArea();
+            $('.typeCar input').prop('disabled', false)
+            $('.typeCar input').prop('checked', false);
+            $('#allVhcleCo').prop('checked' , true);
+
+            this.onChange = false;
         });
+
+        $('.typeCar input').change(function(){
+            const type = $(this).attr('id');
+            self.render.getFilter(type);
+        })
+    }
+
+    get onChange(){
+        return this._onChange;
+    }
+
+    set onChange(val){
+        this._onChange = val;
     }
 
     get area(){
-        // return `${this._area1} ${this._area2}`;
-        return this._area1;
+        return this._area;
     }
 
-    get area1(){
-        return this._area1;
+    set area(val){
+        this._area = val;
     }
-
-    set area1(val){
-        this._area1 = val;
-    }
-
-    // get area2(){
-    //     return this._area2;
-    // }
-
-    // set area2(val){
-    //     this._area2 = val;
-    // }
 
     get typeCar(){
         return this._typeCar;
@@ -76,7 +86,6 @@ export class SearchInfo {
     set typeCar(val){
         this._typeCar = val;
     }
-    
 
     // 시·도
     makeArea1(){

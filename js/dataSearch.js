@@ -45,7 +45,6 @@ export function getData(key, value) {
     const VAL = value;
     let result = [];
 
-    // 8~10ms
     if(KEY === 'rdnmadr'){
         DATA.map(value =>{
             // 도로명주소 없을 때
@@ -64,3 +63,4 @@ export function getData(key, value) {
 
     return result;
 }
+
