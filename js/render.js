@@ -1,8 +1,18 @@
 export class Render{
-    constructor(arr){
-        this.ARR = arr;
+    constructor(data){
+        this._data = data;
         this.html = [];
         this._time1;
+        this.$modal = $('#modalDetail').find('.modal-content');
+        this._modalHtml = this.$modal.html();
+    }
+
+    get modalHtml(){
+        return this._modalHtml;
+    }
+
+    get data(){
+        return this._data;
     }
 
     get time1(){
@@ -14,7 +24,7 @@ export class Render{
     }
 
     getListArea(){
-        this.ARR.forEach((el, idx) => {
+        this.data.forEach((el, idx) => {
             this.val = el;
             const url = this.val.rceptItnadr;
             let URL = '예약접수';
@@ -25,41 +35,42 @@ export class Render{
             }
 
             this.html.push(`
-            <div class="listItem listItem-${idx} row">
-                <div class="row itemWrap">
-                    <div class="name col-xs-3 pointer">${this.val.tfcwkerMvmnCnterNm}</div>
-                    <div class="time col-xs-3">
-                        <div class="time_weekday row">
-                            <div class="col-xs-4">평일</div>
-                            <div class="col-xs-8">${this.val.weekdayOperOpenHhmm} ~ ${this.val.weekdayOperColseHhmm}</div>
+                <div class="border border-dark listItem" id="listItem-${idx}">
+                    <div class="row align-items-center">
+                        <div class="name pointer col" data-toggle="modal" data-target="#modalDetail">${this.val.tfcwkerMvmnCnterNm}</div>
+                        <div class="time col">
+                            <div class="row time_weekday">
+                            <div class="col-4">평일</div>
+                            <div class="col-8">${this.val.weekdayOperOpenHhmm} ~ ${this.val.weekdayOperColseHhmm}</div>
+                            </div>
+                            <div class="row time_weekend">
+                            <div class="col-4">주말</div>
+                            <div class="col-8">${this.val.wkendOperOpenHhmm} ~ ${this.val.wkendOperCloseHhmm}</div>
+                            </div>
                         </div>
-                        <div class="time_weekend row">
-                            <div class="col-xs-4">주말</div>
-                            <div class="col-xs-8">${this.val.wkendOperOpenHhmm} ~ ${this.val.wkendOperCloseHhmm}</div>
+                        <div class="col tell">
+                            <span class="tellNumber">${this.val.phoneNumber}</span>
+                            <span class="pointer btnCopy"><i class="bi bi-clipboard"></i></span>
+                            <input class="clip_target" type="text" style="z-index: -999; position:absolute;"/>
+                        </div>
+                        <div class="homepage col">
+                            <a class="${dis}" href="${this.val.rceptItnadr}" target="black">${URL}</a>
                         </div>
                     </div>
-                    <div class="tell col-xs-3">
-                        <span class="tellNumber">${this.val.phoneNumber}</span>
-                        <span class="pointer btnCopy"><i class="bi bi-clipboard"></i></span>
-                        <input class="clip_target" type="text" style="z-index: -999; position:absolute;"/>
+                    <div class="row itemTypeCar">
+                        <div class="col-3 empty"></div>
+                        <div class="col-3 my-2">
+                            <div class="row type_car _slopeVhcleCo">
+                                <div class="col-4">슬로프</div>
+                                <div class="col-8">${this.val.slopeVhcleCo}</div>
+                            </div>
+                            <div class="row type_car _liftVhcleCo">
+                                <div class="col-4">리프트</div>
+                                <div class="col-8">${this.val.liftVhcleCo}</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="homepage col-xs-3"><a class="${dis}" href="${this.val.rceptItnadr}" target="black">${URL}</a></div>
                 </div>
-                
-                <div class="row itemTypeCar">
-                    <div class="col-xs-3 empty"></div>
-                    <div class="col-xs-3">
-                        <div class="type_car _slopeVhcleCo row">
-                            <div class="col-xs-4">슬로프</div>
-                            <div class="col-xs-8">${this.val.slopeVhcleCo}</div>
-                        </div>
-                        <div class="type_car _liftVhcleCo row">
-                            <div class="col-xs-4">리프트</div>
-                            <div class="col-xs-8">${this.val.liftVhcleCo}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             `);
         });
 
@@ -85,7 +96,7 @@ export class Render{
         }
         
         $(`._${TYPE}`).addClass('bgOn');
-        this.ARR.forEach((val, idx) =>{
+        this.data.forEach((val, idx) =>{
             const $el = $(`.listItem-${idx}`);
             if(val[TYPE] === '0'){
                 $el.addClass("hide");
@@ -133,18 +144,30 @@ export class Render{
         })
     }
 
-    getDetail(){
-        const popHTML = `
-            <div></div>
-        `;
+    getDetail(obj){
     }
 
     initDetail(){
-        $('.name').on("click", function(){
-            console.log($(this));
-        })
-    }
+        const self = this;
+        
+        $('.name').on("click", (e)=>{
+            const idx = $(e.target).parents('.listItem').index();
+            const keys = ['tfcwkerMvmnCnterNm', 'weekdayRceptOpenHhmm', 'weekdayRceptColseHhmm', 'wkendRceptOpenHhmm', 'wkendRceptCloseHhmm', 'insideOpratArea', 'outsideOpratArea', 'useCharge'];
 
-    
+            setModalHtml(idx, keys);
+        })
+
+        function setModalHtml(idx, keys){
+            const IDX  = idx;
+            const KEYS = keys;
+
+            let result = self.modalHtml;
+            KEYS.forEach((key) => {
+                result = result.replace(`{{__${key}__}}`, self.data[IDX][key]);
+            })
+
+            self.$modal.html(result);
+        }
+    }
 }
 

@@ -1,6 +1,9 @@
 <!-- https://bootswatch.com/litera -->
 <!-- http://bootstrapk.com/css/#tables -->
 <!-- http://shoelace.io/ -->
+
+<!-- 부트스트랩 v4.6 https://getbootstrap.com/docs/4.6/components/modal/ -->
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,19 +16,21 @@
   <title>PROJECT1</title>
 
   <!-- 부트스트랩 -->
-  <!-- 합쳐지고 최소화된 최신 CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+
+
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
-  <!-- 부가적인 테마 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  
   <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
   
   <link href="css/index.css" rel="stylesheet">
 
@@ -48,44 +53,31 @@
           <!-- <div class="inner"> -->
           <h1 class="masthead-brand">장애인콜택시 통합 조회</h1>
 
-          <div id="boxSearch" class="row">
-            <div class="col-xs-4">
+          <div id="boxSearch" class="row mb-4">
+            <div class="col">
               <select class="area1 form-control">
                 <option value="none">==시·도==</option>
               </select>
             </div>
-            <!-- <div class="col-xs-3">
-              <select class="area2 form-control" disabled>
-                <option value="none"></option>
-              </select>
-            </div> -->
-            <!-- <div class="col-xs-4">
-              <select class="typeCar form-control">
-                <option value="none">차량종류</option>
-                <option value="all">상관없음</option>
-                <option value="slope">슬로프형</option>
-                <option value="lift">리프트형</option>
-              </select>
-            </div> -->
-            <div class="col-xs-4">
+            <div class="col">
               <button class="btnSearch btn btn-default btn-block" type="submit" disabled>찾기</button>
             </div>
           </div>
-          <div class="typeCar row">
-            <div class="col-xs-2">차량종류 선택 </div>
-            <div class="form-check col-xs-2">
+          <div class="row mb-4 typeCar">
+            <div class="col">차량종류 선택 </div>
+            <div class="col form-check">
               <input class="form-check-input pointer" type="radio" name="flexRadioDefault" id="allVhcleCo" checked disabled>
               <label class="form-check-label pointer" for="allVhcleCo">
                 모두
               </label>
             </div>
-            <div class="form-check col-xs-2">
+            <div class="col form-check">
               <input class="form-check-input pointer" type="radio" name="flexRadioDefault" id="slopeVhcleCo" disabled>
               <label class="form-check-label pointer" for="slopeVhcleCo">
                 슬로프형
               </label>
             </div>
-            <div class="form-check col-xs-2">
+            <div class="col form-check">
               <input class="form-check-input pointer" type="radio" name="flexRadioDefault" id="liftVhcleCo" disabled>
               <label class="form-check-label pointer" for="liftVhcleCo">
                 리프트형
@@ -93,33 +85,52 @@
             </div>
           </div>
 
-          <div id="boxResult" class="row">
+          <div id="boxResult">
             <div id="listTitle" class="row">
-              <div class="col-xs-3">센터명</div>
-              <div class="col-xs-3">이용시간</div>
-              <div class="col-xs-3">전화번호</div>
-              <div class="col-xs-3">사이트</div>
+              <div class="col">센터명</div>
+              <div class="col">이용시간</div>
+              <div class="col">전화번호</div>
+              <div class="col">사이트</div>
             </div>
 
-            <div id="boxListItem" class="row">
-              <!-- <div class="listItem listItem-1 row">
-                <div class="name col-xs-3">센터명</div>
-                <div class="time col-xs-3">
-                  <div class="time_weekday row">
-                    <div class="col-xs-4">평일</div>
-                    <div class="col-xs-8">00:00 ~ 00:00</div>
+            <div id="boxListItem" class="container">
+              <!-- <div class="itemWrap mb-1">
+                  <div class="row align-items-center listItem listItem-1 ">
+                      <div class="name col">센터명</div>
+                      <div class="time col">
+                        <div class="row time_weekday">
+                          <div class="col-4">평일</div>
+                          <div class="col-8">00:00 ~ 00:00</div>
+                        </div>
+                        <div class="row time_weekend">
+                          <div class="col-4">주말</div>
+                          <div class="col-8">00:00 ~ 00:00</div>
+                        </div>
+                      </div>
+                      <div class="col tell">
+                        <span class="tellNumber">전화번호</span>
+                        <span class="pointer btnCopy"><i class="bi bi-clipboard"></i></span>
+                        <input class="clip_target" type="text" style="z-index: -999; position:absolute;"/>
+                      </div>
+                      <div class="homepage col">
+                        <a class="${dis}" href="none" target="black">바로가기</a>
+                      </div>
                   </div>
-                  <div class="time_weekend row">
-                    <div class="col-xs-4">주말</div>
-                    <div class="col-xs-8">00:00 ~ 00:00</div>
+                  <div class="row border-top itemTypeCar">
+                      <div class="col-3 empty"></div>
+                      <div class="col">
+                          <div class="row type_car _slopeVhcleCo">
+                              <div class="col-4">슬로프</div>
+                              <div class="col-8">10</div>
+                          </div>
+                          <div class="row type_car _liftVhcleCo">
+                              <div class="col-4">리프트</div>
+                              <div class="col-8">20</div>
+                          </div>
+                      </div>
                   </div>
-                </div>
-                <div class="tellC col-xs-3">전화번호</div>
-                <div class="homepage col-xs-3">사이트가기</div>
-              </div> -->
-            </div>
-
-
+              </div>
+            </div> -->
           </div>
         </div>
 
@@ -144,6 +155,61 @@
 
   </div>
 
+  <!-- aria-hidden="true"  -->
+  <!-- <div class="modal fade show" id="modalDetail" tabindex="-1" aria-labelledby="modaLabel" aria-modal="true" style="display: block;"> -->
+  <div class="modal fade show" id="modalDetail" tabindex="-1" aria-labelledby="modaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modaLabel">{{__tfcwkerMvmnCnterNm__}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row align-items-center border-bottom py-2">
+                        <div class="col-3">예약 접수</div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-4">평일</div>
+                                <div class="col-8">{{__weekdayRceptOpenHhmm__}} ~ {{__weekdayRceptColseHhmm__}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">주말</div>
+                                <div class="col-8">{{__wkendRceptOpenHhmm__}} ~ {{__wkendRceptCloseHhmm__}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center border-bottom py-2">
+                        <div class="col-3">운행 지역</div>
+                        <div class="col-9">
+                            <div class="row align-items-center border-bottom py-1">
+                                <div class="col-4">관내 운행</div>
+                                <div class="col-8">{{__insideOpratArea__}}</div>
+                            </div>
+                            <div class="row align-items-center py-1">
+                                <div class="col-4">관외 운행</div>
+                                <div class="col-8">{{__outsideOpratArea__}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center py-2">
+                        <div class="col-3">이용 요금</div>
+                        <div class="col-9">
+                          <div class="row py-1">{{__useCharge__}}</div>
+                          <div class="row py-1">지도</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+      </div>
+  </div>
+
   <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
@@ -154,7 +220,8 @@
   <!-- <script src="js/searchInfo.js"></script> -->
 
   <script type="module" src="js/index.js"></script>
-  <script type="module" src="js/dataSearch.js"></script>
+  <!-- <script type="module" src="js/dataSearch.js"></script> -->
+  <script src="js/map.js"></script>
 
   <script type="text/javascript">
       // $(document).ready(()=>{
