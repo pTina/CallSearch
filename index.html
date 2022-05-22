@@ -257,7 +257,7 @@
             $target.html(_address);
 
             const infoObj = {
-              address: `"${_address}"`,
+              address: _address,
               type: _addressType
             };
 
@@ -283,16 +283,55 @@
       const KEY = 'D0D2757E-08D6-3BF1-A6C6-41B4D0E929B3';
       const _url = `http://api.vworld.kr/req/address?service=address&request=getCoord&format=json&{{option}}&key=${KEY}`;
       const URL = _url.replace('{{option}}', encodeURI(opt));
-      console.log(URL);
-      
-      const req = new Request(URL,{
-            // method: 'GET',
-            mode: 'no-cors'
-      });
 
+      // $.ajax({
+      //   type: "GET",
+      //   url: URL,
+      //   headers: {
+      //     'Access-Control-Allow-origin': 'http://localhost:1234/',
+      //     'Access-Control-Allow-Credentials': 'true'
+      //   },
+        
+      //   success: function (res) {
+      //       console.log(res);
+      //   }
+      // });
+
+      // const ajax = new XMLHttpRequest();
+      // ajax.open('GET', URL);
+      // ajax.send();
+      // console.log(JSON.stringify(ajax.response));
+      // ajax.setRequestHeader('credentials', 'include');
+      //         'Access-Control-Allow-origin': 'http://localhost:1234',
+      //         'Access-Control-Allow-Credentials': 'true'
+
+     
+
+      // Access-Control-Allow-Origin: *
+
+
+
+      // CORS 이해
+      // https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-CORS-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95-%F0%9F%91%8F#chrome-%ED%99%95%EC%9E%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9D%B4%EC%9A%A9
+
+
+
+      
+      // const req = new Request(URL,{
+            // method: 'GET',
+            // mode: 'no-cors',
+            // headers: { 
+            //   'credentials':'include',
+            //   'Access-Control-Allow-origin': 'http://localhost:1234',
+            //   'Access-Control-Allow-Credentials': 'true'
+            // }
+      // });
+
+      const req = new Request(URL);
+      
       fetch(req)
-          .then(response => console.log(response))
-          .then((data)=>{
+          .then(response=> response.json())
+          .then(data=>{
               console.log(data);
           })
           .catch(err => console.log(err));
@@ -323,3 +362,5 @@
 </body>
 
 </html>
+
+
