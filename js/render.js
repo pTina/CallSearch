@@ -1,3 +1,5 @@
+import * as MAP from './map.js';
+
 export class Render{
     constructor(data){
         this._data = data;
@@ -167,6 +169,16 @@ export class Render{
             })
 
             self.$modal.html(result);
+
+            // const option = {
+            //     origin: '127.11015314141542,37.39472714688412',
+            //     destination : '127.10824367964793,37.401937080111644'
+            // };
+
+            // const map = new MAP.mapData(option);
+            // MAP.mapData;
+
+
         }
     }
 }

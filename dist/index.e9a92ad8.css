@@ -168,4 +168,8 @@ body {
   transition: background-color .2s linear;
 }
 
+#modalDetail .btnMap {
+  background: #5c6c73;
+}
+
 /*# sourceMappingURL=index.e9a92ad8.css.map */

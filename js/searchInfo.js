@@ -21,9 +21,10 @@ export class SearchInfo {
         // 한번만 실행
         this.makeArea1();
 
-        $(".area1").click(function(){
+        $(".area1").on('change', function(){
             const val = $(this).find('option:selected').attr('value');
-
+            console.log(val);
+            
             if(self.area === val){
                 self.onChange = false;
                 return false;
@@ -39,8 +40,7 @@ export class SearchInfo {
                 self.onChange = true;
                 $('.typeCar input').prop('disabled', true);
             }
-            
-        });
+        })
 
 
         $('.btnSearch').on('click', ()=>{

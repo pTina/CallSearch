@@ -198,7 +198,26 @@
                         <div class="col-3">이용 요금</div>
                         <div class="col-9">
                           <div class="row py-1">{{__useCharge__}}</div>
-                          <div class="row py-1">지도</div>
+                          <div class="row py-1" id="mapInfo">
+                              <div class="col-3">예상금액</div>
+                              <div class="col-9">
+                                  <div class="row">출발지</div>
+                                  <div class="row">
+                                      <span id="origin" class="mapResult"></span>
+                                      <button class="btn btn-default btn-block btnMap" type="button" data="origin">찾기</button>
+                                  </div>
+                                  <div class="row">도착지</div>
+                                  <div class="row">
+                                      <span id="destination" class="mapResult"></span>
+                                      <button class="btn btn-default btn-block btnMap" type="button" data="destination">찾기</button>
+                                  </div>
+                                  <div class="row py-1" id="totalPrice">
+                                      <span id="price"></span>
+                                      <button class="btn btn-default btn-block btnMap" type="button" data="price">예상금액확인</button>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row py-1">*해당 예상금액은 실제 결제금액과 다를 수 있습니다.*</div>
                         </div>
                     </div>
                 </div>
@@ -221,9 +240,76 @@
 
   <script type="module" src="js/index.js"></script>
   <!-- <script type="module" src="js/dataSearch.js"></script> -->
-  <script src="js/map.js"></script>
+  <!-- <script type="module" src="js/map.js"></script> -->
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
   <script type="text/javascript">
+    $(document).on('click', '.btnMap', (e)=>{
+      const $this = $(e.target);
+      const data = $this.attr('data');
+      const $target = $(`#${data}`);
+
+      new daum.Postcode({
+        oncomplete: function(data) {
+            const _address = data.address;
+            const _addressType = getAddressType(data.userSelectedType);
+            $target.html(_address);
+
+            const infoObj = {
+              address: `"${_address}"`,
+              type: _addressType
+            };
+
+            Geocoder(getOption(infoObj));
+          }
+        }).open();
+    })
+
+    function getAddressType(type){
+      // type(input): R(도로명), J(지번)
+      // return(output): ROAD (도로명주소), PARCEL(지번주소)
+        switch(type){
+          case 'R':
+            return 'ROAD';
+          case 'J':
+            return 'PARCEL';
+          default:
+            return 'address type is null';
+        }
+    }
+
+    function Geocoder(opt){
+      const KEY = 'D0D2757E-08D6-3BF1-A6C6-41B4D0E929B3';
+      const _url = `http://api.vworld.kr/req/address?service=address&request=getCoord&format=json&{{option}}&key=${KEY}`;
+      const URL = _url.replace('{{option}}', encodeURI(opt));
+      console.log(URL);
+      
+      const req = new Request(URL,{
+            // method: 'GET',
+            mode: 'no-cors'
+      });
+
+      fetch(req)
+          .then(response => console.log(response))
+          .then((data)=>{
+              console.log(data);
+          })
+          .catch(err => console.log(err));
+    }
+
+    function getOption (object){
+        let option = '';
+        Object.entries(object).forEach(([key, value]) => {
+            option += `${key}=${value}&`;
+        });
+    
+        return option.slice(0,-1);
+      }
+
+    // 지오코딩 인증키
+    // D0D2757E-08D6-3BF1-A6C6-41B4D0E929B3
+
       // $(document).ready(()=>{
       //     const searchInfo = new SearchInfo();
 

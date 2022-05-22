@@ -224,3 +224,8 @@ body {
 .listItem .tell{
   transition: background-color linear 0.2s;
 }
+
+/*  */
+#modalDetail .btnMap{
+  background: #5C6C73;
+}
