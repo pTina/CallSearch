@@ -226,6 +226,7 @@ body {
 }
 
 /*  */
-#modalDetail .btnMap{
+#modalDetail .btnMap,
+#modalDetail #btnPrice{
   background: #5C6C73;
 }

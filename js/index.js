@@ -41,14 +41,14 @@
 // xhr.send('');
 
 import {SearchInfo} from './searchInfo.js';
-import {mapData, initSearchMap} from './map.js';
+// import {mapData, initSearchMap} from './map.js';
 
 $(document).ready(()=>{
     const searchInfo = new SearchInfo();
-    const option = {
-        origin: '127.11015314141542,37.39472714688412',
-        destination : '127.10824367964793,37.401937080111644'
-    };
+    // const option = {
+    //     origin: '127.11015314141542,37.39472714688412',
+    //     destination : '127.10824367964793,37.401937080111644'
+    // };
 
     // const map = new mapData(option);
     // initSearchMap();

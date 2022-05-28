@@ -60,8 +60,8 @@ const REST_API_KEY = 'a296f869f92b1a4919ba690e84991602';
 const URL = 'https://apis-navi.kakaomobility.com/v1/directions?{{option}}';
 
 
-export class mapData{
-    constructor(obj){
+class NaviData {
+    constructor(obj) {
         this._obj = obj;
         this._data;
         this._origin;
@@ -69,53 +69,53 @@ export class mapData{
 
         this.KakaoNavi(this.getOption(this._obj));
     }
-    
-    get data(){
+
+    get data() {
         return this._data;
     }
 
-    set data(value){
+    set data(value) {
         this._data = value;
     }
 
-    getOption (object){
+    getOption(object) {
         let option = '';
         Object.entries(object).forEach(([key, value]) => {
             option += `${key}=${value}&`;
         });
-    
-        return option.slice(0,-1);
+
+        return option.slice(0, -1);
     }
 
-    KakaoNavi(opt){
+    KakaoNavi(opt) {
         const self = this;
         const req = new Request(URL.replace('{{option}}', opt), {
             method: "GET",
-            headers: new Headers({ 
+            headers: new Headers({
                 "Authorization": `KakaoAK ${REST_API_KEY}`
             })
         });
-    
+
         fetch(req)
             .then(response => response.json())
-            .then((data)=>{
+            .then((data) => {
                 self.data = data;
                 console.log(self.data);
             })
             .catch(err => console.log(err));
-    
+
     }
 }
 
 
 
-// function initSearchMap(){
-//     $(document).on('click', '.btnMap', (e)=>{
-//         const $this = $(e.target);
-//         console.log($this.attr('data')); // origin, destination
-//         KakaoMap();
-//     })
-// }
+function initSearchMap() {
+    $(document).on('click', '.btnMap', (e) => {
+        const $this = $(e.target);
+        console.log($this.attr('data')); // origin, destination
+        KakaoMap();
+    })
+}
 
 
 // 주소 검색 API
@@ -134,3 +134,4 @@ export class mapData{
 // };
 
 // var map = new kakao.maps.Map(container, options);
+

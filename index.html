@@ -213,7 +213,7 @@
                                   </div>
                                   <div class="row py-1" id="totalPrice">
                                       <span id="price"></span>
-                                      <button class="btn btn-default btn-block btnMap" type="button" data="price">예상금액확인</button>
+                                      <button class="btn btn-default btn-block" id="btnPrice" type="button" data="price">예상금액확인</button>
                                   </div>
                               </div>
                           </div>
@@ -240,18 +240,40 @@
 
   <script type="module" src="js/index.js"></script>
   <!-- <script type="module" src="js/dataSearch.js"></script> -->
-  <!-- <script type="module" src="js/map.js"></script> -->
+  <script src="js/kakaoNavi.js"></script>
 
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+  <script src="js/route.js"></script>
+  <script src="js/observer.js"></script>
   <script type="text/javascript">
-    $(document).on('click', '.btnMap', (e)=>{
-      const $this = $(e.target);
-      const data = $this.attr('data');
-      const $target = $(`#${data}`);
+      const route = new Route();
 
-      new daum.Postcode({
-        oncomplete: function(data) {
+      $(document).on('click', '#btnPrice', (e)=>{
+          if(route.isEmpty()){
+              alert('출발지와 도착지를 모두 지정해주세요.');
+              return false;
+          }
+
+          // getDistance(route.origin, route.destination);
+
+          const option = {
+                origin: `${route.origin.x}, ${route.origin.y}`,
+                destination : `${route.destination.x}, ${route.destination.y}`
+          };
+
+          const naviData = new NaviData(option);
+
+      })
+
+      $(document).on('click', '.btnMap', (e) => {
+        const self = this;
+        const $this = $(e.target);
+        const data = $this.attr('data');
+        const $target = $(`#${data}`);
+        this.type = data;
+
+        new daum.Postcode({
+          oncomplete: function (data) {
             const _address = data.address;
             const _addressType = getAddressType(data.userSelectedType);
             $target.html(_address);
@@ -261,15 +283,16 @@
               type: _addressType
             };
 
-            Geocoder(getOption(infoObj));
+            observer.register("setRoute", route.setRoute, route);
+            Geocoder(getOption(infoObj), self.type);
           }
         }).open();
-    })
+      })
 
-    function getAddressType(type){
-      // type(input): R(도로명), J(지번)
-      // return(output): ROAD (도로명주소), PARCEL(지번주소)
-        switch(type){
+      function getAddressType(type) {
+        // type(input): R(도로명), J(지번)
+        // return(output): ROAD (도로명주소), PARCEL(지번주소)
+        switch (type) {
           case 'R':
             return 'ROAD';
           case 'J':
@@ -277,87 +300,37 @@
           default:
             return 'address type is null';
         }
-    }
-
-    function Geocoder(opt){
-      const KEY = 'D0D2757E-08D6-3BF1-A6C6-41B4D0E929B3';
-      const _url = `http://api.vworld.kr/req/address?service=address&request=getCoord&format=json&{{option}}&key=${KEY}`;
-      const URL = _url.replace('{{option}}', encodeURI(opt));
-
-      // $.ajax({
-      //   type: "GET",
-      //   url: URL,
-      //   headers: {
-      //     'Access-Control-Allow-origin': 'http://localhost:1234/',
-      //     'Access-Control-Allow-Credentials': 'true'
-      //   },
-        
-      //   success: function (res) {
-      //       console.log(res);
-      //   }
-      // });
-
-      // const ajax = new XMLHttpRequest();
-      // ajax.open('GET', URL);
-      // ajax.send();
-      // console.log(JSON.stringify(ajax.response));
-      // ajax.setRequestHeader('credentials', 'include');
-      //         'Access-Control-Allow-origin': 'http://localhost:1234',
-      //         'Access-Control-Allow-Credentials': 'true'
-
-     
-
-      // Access-Control-Allow-Origin: *
-
-
-
-      // CORS 이해
-      // https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-CORS-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95-%F0%9F%91%8F#chrome-%ED%99%95%EC%9E%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EC%9D%B4%EC%9A%A9
-
-
-
-      
-      // const req = new Request(URL,{
-            // method: 'GET',
-            // mode: 'no-cors',
-            // headers: { 
-            //   'credentials':'include',
-            //   'Access-Control-Allow-origin': 'http://localhost:1234',
-            //   'Access-Control-Allow-Credentials': 'true'
-            // }
-      // });
-
-      const req = new Request(URL);
-      
-      fetch(req)
-          .then(response=> response.json())
-          .then(data=>{
-              console.log(data);
-          })
-          .catch(err => console.log(err));
-    }
-
-    function getOption (object){
-        let option = '';
-        Object.entries(object).forEach(([key, value]) => {
-            option += `${key}=${value}&`;
-        });
-    
-        return option.slice(0,-1);
       }
 
-    // 지오코딩 인증키
-    // D0D2757E-08D6-3BF1-A6C6-41B4D0E929B3
+      function Geocoder(opt, type) {
+        const _type = type;
+        const KEY = 'D0D2757E-08D6-3BF1-A6C6-41B4D0E929B3';
+        const _url = `http://api.vworld.kr/req/address?service=address&request=getCoord&format=json&{{option}}&key=${KEY}`;
+        const URL = _url.replace('{{option}}', encodeURI(opt));
 
-      // $(document).ready(()=>{
-      //     const searchInfo = new SearchInfo();
+        const req = new Request(URL);
+        const position = '';
 
-      //     $(".area1").change(function(){
-      //         const val = $(this).find('option:selected').attr('value');
-      //         searchInfo.makeArea2(val);
+        fetch(req)
+          .then(response => response.json())
+          .then(data => {
+              const _x = data.response.result.point.x;
+              const _y = data.response.result.point.y;
               
-      //     });
-      // })
+              observer.notify("setRoute", {type: _type, x: _x, y: _y});
+          })
+          .catch(err => console.log(err));
+      }
+
+      function getOption(object) {
+        let option = '';
+        Object.entries(object).forEach(([key, value]) => {
+          option += `${key}=${value}&`;
+        });
+
+        return option.slice(0, -1);
+      }
+
   </script>
 </body>
 

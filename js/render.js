@@ -1,4 +1,4 @@
-import * as MAP from './map.js';
+// import * as MAP from './map.js';
 
 export class Render{
     constructor(data){
