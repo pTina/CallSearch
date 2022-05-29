@@ -57,7 +57,7 @@
 // };
 
 const REST_API_KEY = 'a296f869f92b1a4919ba690e84991602';
-const URL = 'https://apis-navi.kakaomobility.com/v1/directions?{{option}}';
+const URL = 'https://apis-navi.kakaomobility.com/v1/directions?car_type=2&{{option}}';
 
 
 class NaviData {
@@ -100,7 +100,16 @@ class NaviData {
             .then(response => response.json())
             .then((data) => {
                 self.data = data;
-                console.log(self.data);
+                const distance = self.data.routes[0].summary.distance
+                const fare = self.data.routes[0].summary.fare;
+
+                const result = {
+                    'dist': distance,
+                    'fare': fare
+                };
+
+                observer.notify("setSummary", result);
+                
             })
             .catch(err => console.log(err));
 
@@ -109,13 +118,15 @@ class NaviData {
 
 
 
-function initSearchMap() {
-    $(document).on('click', '.btnMap', (e) => {
-        const $this = $(e.target);
-        console.log($this.attr('data')); // origin, destination
-        KakaoMap();
-    })
-}
+
+
+// function initSearchMap() {
+//     $(document).on('click', '.btnMap', (e) => {
+//         const $this = $(e.target);
+//         console.log($this.attr('data')); // origin, destination
+//         KakaoMap();
+//     })
+// }
 
 
 // 주소 검색 API

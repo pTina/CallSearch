@@ -3,8 +3,14 @@
 
 class Route{
     constructor(){
+        this._summary;
         this._origin = {x:-999, y:-999};
         this._destination = {x:-999, y:-999};
+    }
+
+    setSummary(obj){
+        this.summary = obj;
+        console.log(this.summary);
     }
 
     setRoute(e) {
@@ -22,6 +28,14 @@ class Route{
         }else{
             return false;
         }
+    }
+
+    get summary(){
+        return this._summary;
+    }
+
+    set summary(value){
+        this._summary = value;
     }
 
     get origin(){

@@ -240,13 +240,16 @@
 
   <script type="module" src="js/index.js"></script>
   <!-- <script type="module" src="js/dataSearch.js"></script> -->
-  <script src="js/kakaoNavi.js"></script>
-
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="js/route.js"></script>
   <script src="js/observer.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="js/kakaoNavi.js"></script>
+  <script src="js/route.js"></script>
+  
   <script type="text/javascript">
       const route = new Route();
+
+      observer.register("setSummary", route.setSummary, route);
+      observer.register("setRoute", route.setRoute, route);
 
       $(document).on('click', '#btnPrice', (e)=>{
           if(route.isEmpty()){
@@ -254,15 +257,12 @@
               return false;
           }
 
-          // getDistance(route.origin, route.destination);
-
           const option = {
                 origin: `${route.origin.x}, ${route.origin.y}`,
                 destination : `${route.destination.x}, ${route.destination.y}`
           };
 
           const naviData = new NaviData(option);
-
       })
 
       $(document).on('click', '.btnMap', (e) => {
@@ -282,8 +282,8 @@
               address: _address,
               type: _addressType
             };
-
-            observer.register("setRoute", route.setRoute, route);
+            
+            
             Geocoder(getOption(infoObj), self.type);
           }
         }).open();

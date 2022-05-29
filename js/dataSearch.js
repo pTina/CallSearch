@@ -36,6 +36,8 @@ instt_nm				제공기관기관명
 */
 
 const DATA = callData;
+
+
 export function getData(key, value) {
     let KEY = '';
     if(key === 'area'){
