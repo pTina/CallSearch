@@ -217,6 +217,16 @@ body {
   height: 470px;
 }
 
+#boxListItem.isEmpty{
+  background: rgba(0,0,0,0.5);
+}
+
+#boxListItem.isEmpty::after{
+  display: block;
+  content: "죄송합니다. 검색결과가 없습니다.";
+  color: #DFE9F2;
+}
+
 .listItem .homepage > a{
   color: #5C6C73;
 }
@@ -229,4 +239,29 @@ body {
 #modalDetail .btnMap,
 #modalDetail #btnPrice{
   background: #5C6C73;
+}
+
+/* */
+.container{
+  max-width: none !important;
+}
+
+#daumPostCode{
+  z-index: 1100;
+}
+
+.modal-backdrop:nth-child(3){
+  z-index: 1060;
+}
+
+#daumPostCode .container-fluid > div{
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*  */
+@media (min-width: 576px){
+  .modal-dialog.modal-lg{
+    max-width: none !important;
+  }
 }

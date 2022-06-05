@@ -10,7 +10,12 @@ class Route{
 
     setSummary(obj){
         this.summary = obj;
-        console.log(this.summary);
+        const dist = this.summary.dist;
+        const fare = this.summary.fare.taxi;
+        const toll = this.summary.fare.toll;
+        const taxiFare = `택시요금: ${fare} + 톨비: ${toll} = 총: ${fare+toll}원<br>거리: ${dist}m`;
+        const $price = $('#price');
+        $price.html(taxiFare);
     }
 
     setRoute(e) {

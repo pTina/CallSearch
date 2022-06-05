@@ -23,7 +23,6 @@ export class SearchInfo {
 
         $(".area1").on('change', function(){
             const val = $(this).find('option:selected').attr('value');
-            console.log(val);
             
             if(self.area === val){
                 self.onChange = false;
