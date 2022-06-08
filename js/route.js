@@ -28,7 +28,7 @@ class Route{
     }
 
     isEmpty(){
-        if(this.origin.x == -999 || this.destination.x === -999){
+        if(this.origin.x === -999 || this.destination.x === -999){
             return true;
         }else{
             return false;
